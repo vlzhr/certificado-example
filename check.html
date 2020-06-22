@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Check certificate</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function checkCerti() {
+            const name = document.querySelector(".data").value;
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://testnodes.wavesnodes.com/addresses/data/3N2LxJprJX7uZHryTPLdm4Hg43mbBCzuVpR/"+name);
+            xhr.onload = () => {
+                const result = document.querySelector(".result");
+                if (JSON.parse(xhr.response).key === name) {
+                    result.innerText = "certificate is VALID";
+                } else {
+                    result.innerText = "certificate is NOT VALID";
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+    <main class="main">
+        <h1>check the certificate!</h1>
+        <input type="text" class="data" name="data" placeholder="insert the name"><br>
+        <button onclick="checkCerti()">check validity!</button>
+
+        <div class="result">is certificate real?</div>
+    </main>
+</body>
+</html>
